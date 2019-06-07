@@ -1,8 +1,8 @@
-# Ophidia WPS Module
+# Ophidia ESGF Compute WPS Module
 
 ### Description
 
-WPS module is a Python package enabling a WPS interface for Ophidia Server. This version is compatible with Ophidia Server v1.5.0.
+ESGF Compute WPS module is a Python package enabling a WPS interface for Ophidia Server to perform ESGF CWT operations. This version is compatible with Ophidia Server v1.5.1.
 
 It implements a process for PyWPS - Python Web Processing Service (http://pywps.org/), which translates WPS Requests into JSON Requests for Ophidia Web Service and, vice versa, replies to WPS clients with WPS Responses encapsulating the releted JSON Responses.
 
@@ -102,8 +102,8 @@ Check the WPS interface by sending the requests "GetCababilities" and "DescribeP
 
 ```
 curl -k https://localhost/wps/?service=WPS&version=1.0.0&request=getcapabilities
-curl -k https://localhost/wps/?service=WPS&version=1.0.0&request=describeprocess&identifier=ophexecutemain
+curl -k https://localhost/wps/?service=WPS&version=1.0.0&request=describeprocess&identifier=OPHIDIA.subset
 ```
 
-Requested resources are XML documents with a number of details about the service and the process *ophexecutemain*.
+Requested resources are XML documents with a number of details about the service and the process *OPHIDIA.subset*.
 
