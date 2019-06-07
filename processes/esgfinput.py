@@ -232,7 +232,7 @@ class EsgfInput(object):
             # convert the value and write it into the dictionary, under the keyword "key"
             dictInputs[key] = ast.literal_eval(value)
         
-        #IF C'è DOMAIN IN KEY
+        #IF DOMAIN IN KEY
         # adding step=1 as default value
         self.__add_DomainStep(dictInputs)
         
