@@ -1,5 +1,5 @@
 setting_host: "localhost"
 setting_port: "11732"
-setting_outputpath: "/data"
-setting_outputurl: "https://127.0.0.1/wpsoutputs/data"
+setting_outputpath: "/var/www/html/wpsoutputs"
+setting_outputurl: "https://localhost/wpsoutputs"
 
