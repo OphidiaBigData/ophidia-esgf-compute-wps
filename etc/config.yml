@@ -1,0 +1,4 @@
+setting_server: "127.0.0.1"
+setting_port: "11732"
+setting_path: "/data"
+
