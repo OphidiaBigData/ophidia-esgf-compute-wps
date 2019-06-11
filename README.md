@@ -44,10 +44,10 @@ Download Ophidia WPS sources in /usr/local/ophidia/extra/src, create a folder */
 ```
 mkdir -p /usr/local/ophidia/extra/src
 cd /usr/local/ophidia/extra/src
-git clone https://github.com/OphidiaBigData/ophidia-wps-module.git
+git clone https://github.com/OphidiaBigData/ophidia-esgf-compute-wps.git
 mkdir -p /usr/local/ophidia/extra/wps
-cp -R /usr/local/ophidia/extra/src/ophidia-wps-module/processes /usr/local/ophidia/extra/wps/
-cp -R /usr/local/ophidia/extra/src/ophidia-wps-module/etc /usr/local/ophidia/extra/wps/
+cp -R /usr/local/ophidia/extra/src/ophidia-esgf-compute-wps/processes /usr/local/ophidia/extra/wps/
+cp -R /usr/local/ophidia/extra/src/ophidia-esgf-compute-wps/etc /usr/local/ophidia/extra/wps/
 ```
 
 Configure Apache by saving the following specification in */etc/httpd/conf.d/python.conf*.
@@ -61,7 +61,7 @@ Configure Apache by saving the following specification in */etc/httpd/conf.d/pyt
 		Require all granted
 	</Directory>
 
-By default it is assumed that Ophidia Server is running on the same node where PyWPS works and listening to port 11732. Otherwise, change service address (IP address and port number) by editing */usr/local/ophidia/extra/wps/processes/ophidia.py*.
+By default it is assumed that Ophidia Server is running on the same node where PyWPS works and listening to port 11732. Otherwise, change service address (IP address and port number) by editing */usr/local/ophidia/extra/wps/etc/config.yml*.
 
 Create the folders for PyWPS log file and WPS Responses (based on parameters set in */usr/local/ophidia/extra/wps/etc/pywps.cfg*):
 
@@ -101,8 +101,8 @@ Further information can be found at [http://ophidia.cmcc.it/documentation](http:
 Check the WPS interface by sending the requests "GetCababilities" and "DescribeProcess" as follows:
 
 ```
-curl -k https://localhost/wps/?service=WPS&version=1.0.0&request=getcapabilities
-curl -k https://localhost/wps/?service=WPS&version=1.0.0&request=describeprocess&identifier=OPHIDIA.subset
+curl -k "https://localhost/wps/?service=WPS&version=1.0.0&request=getcapabilities"
+curl -k "https://localhost/wps/?service=WPS&version=1.0.0&request=describeprocess&identifier=OPHIDIA.subset"
 ```
 
 Requested resources are XML documents with a number of details about the service and the process *OPHIDIA.subset*.
