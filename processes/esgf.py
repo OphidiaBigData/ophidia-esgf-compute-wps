@@ -162,7 +162,7 @@ class oph_esgf_subset(Process):
 
         LOGGER.debug("Execute the job")
 
-        out_name = uuid.uuid4()
+        out_name = str(uuid.uuid4())
 
         cube.Cube.setclient(username=_username, password=_password, server=setting_host, port=setting_port)
         cube1 = cube.Cube.importnc(imp_dim=input_dimensions, measure=input_variable, src_path=input_uri, subset_dims=input_subset_dims, subset_filter=input_subset_filter, subset_type=input_subset_type)
@@ -304,7 +304,7 @@ class oph_esgf_max(Process):
 
         LOGGER.debug("Execute the job")
 
-        out_name = uuid.uuid4()
+        out_name = str(uuid.uuid4())
 
         cube.Cube.setclient(username=_username, password=_password, server=setting_host, port=setting_port)
         cube1 = cube.Cube.importnc(imp_dim=input_dimensions, measure=input_variable, src_path=input_uri, subset_dims=input_subset_dims, subset_filter=input_subset_filter, subset_type=input_subset_type)
@@ -448,7 +448,7 @@ class oph_esgf_min(Process):
 
         LOGGER.debug("Execute the job")
 
-        out_name = uuid.uuid4()
+        out_name = str(uuid.uuid4())
 
         cube.Cube.setclient(username=_username, password=_password, server=setting_host, port=setting_port)
         cube1 = cube.Cube.importnc(imp_dim=input_dimensions, measure=input_variable, src_path=input_uri, subset_dims=input_subset_dims, subset_filter=input_subset_filter, subset_type=input_subset_type)

@@ -150,8 +150,7 @@ class EsgfInput(object):
     def __formatInput(self):
         dataInputs = self.__dataInputs
         
-        # TODO: avoid to consider single values instead of an array of values
-        formattedInputs = dataInputs.replace("\"input\":[", "\"input\":").replace("\"],","\",")
+        formattedInputs = re.sub(r'\"input\":\[.*?\]','\"input\":\"\"', dataInputs)
 
         #extract the domain section of the input
         domainInputs = re.findall('domain=\[(.+?)\];', dataInputs)[0]
