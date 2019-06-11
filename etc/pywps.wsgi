@@ -21,11 +21,13 @@ from pywps.app.Service import Service
 from processes.esgf import oph_esgf_subset
 from processes.esgf import oph_esgf_max
 from processes.esgf import oph_esgf_min
+from processes.esgf import oph_esgf_avg
 
 processes = [
     oph_esgf_subset(),
     oph_esgf_max(),
-    oph_esgf_min()
+    oph_esgf_min(),
+    oph_esgf_avg()
 ]
 
 application = Service(

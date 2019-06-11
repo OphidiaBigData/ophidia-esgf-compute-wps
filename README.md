@@ -36,10 +36,12 @@ cd /usr/local/ophidia/extra/src/pywps
 sudo pip install -r requirements.txt
 sudo pip install -r requirements-gdal.txt # Skip in case of errors
 sudo pip install -r requirements-dev.txt # Skip in case of errors
+sudo pip install numpy
+sudo pip install pandas
 sudo python setup.py install
 ```
 
-Download Ophidia WPS sources in /usr/local/ophidia/extra/src, create a folder */usr/local/ophidia/extra/wps* and copy the sources inside:
+Download Ophidia ESGF Compute WPS sources in /usr/local/ophidia/extra/src, create a folder */usr/local/ophidia/extra/wps* and copy the sources inside:
 
 ```
 mkdir -p /usr/local/ophidia/extra/src
