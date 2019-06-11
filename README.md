@@ -36,8 +36,10 @@ cd /usr/local/ophidia/extra/src/pywps
 sudo pip install -r requirements.txt
 sudo pip install -r requirements-gdal.txt # Skip in case of errors
 sudo pip install -r requirements-dev.txt # Skip in case of errors
+sudo pip install dateutils
 sudo pip install numpy
 sudo pip install pandas
+sudo pip install pyyaml
 sudo python setup.py install
 ```
 

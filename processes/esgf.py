@@ -30,7 +30,7 @@ LOGGER = logging.getLogger("PYWPS")
 _version = "1.0.0"
 _username = "oph-test"
 _password = "abcd"
-_configuration_file = "/usr/local/ophidia/extra/wps/config.yml"
+_configuration_file = "/usr/local/ophidia/extra/wps/etc/config.yml"
 
 # Configuration options
 with open(_configuration_file, 'r') as ymlfile:
@@ -504,7 +504,7 @@ class oph_esgf_avg(Process):
         inputs = [variable, domain, operation]
         outputs = [response]
 
-        super(oph_esgf_min, self).__init__(
+        super(oph_esgf_avg, self).__init__(
             self._handler,
             identifier='OPHIDIA.avg',
             title='OPHIDIA.avg',
