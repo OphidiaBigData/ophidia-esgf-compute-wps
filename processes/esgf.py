@@ -735,6 +735,8 @@ class oph_esgf_aggregate(Process):
             if dimension_name != dimension_names[-1]:
                 input_subset_type = input_subset_type + '|'
 
+        input_dimensions = 'time' # Implici dimension
+
         LOGGER.debug("Execute the job")
 
         out_name = str(uuid.uuid4())
