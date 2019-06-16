@@ -747,7 +747,7 @@ class oph_esgf_aggregate(Process):
         cube1.delete()
 
         # Input files are temporally stored in folder: setting_outputpath + '/' + out_name
-        arguments = setting_outputpath + '|' + out_name
+        arguments = setting_outputpath + '|' + out_name + '|' + input_variable
  
         cube.Cube.script(script = "OPHIDIA.aggregate.sh", args = arguments)
         

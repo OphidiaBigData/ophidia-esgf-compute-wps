@@ -5,7 +5,7 @@ if [ $? -ne 0 ]; then
 	exit 1
 fi
 
-ncrcat ${1}/${2}/*.nc ${1}/${2}.nc
+ncrcat -O -v ${3} ${1}/${2}/*.nc ${1}/${2}.nc
 if [ $? -ne 0 ]; then
 	exit 2
 fi
