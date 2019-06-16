@@ -53,40 +53,40 @@ class oph_esgf_subset(Process):
         variable = LiteralInput(
             'variable',
             'Variable',
-            abstract="Variable list",
-            data_type='string')
+            abstract = "Variable list",
+            data_type = 'string')
 
         domain = LiteralInput(
             'domain',
             'Domain',
-            abstract="Domain list",
-            data_type='string')
+            abstract = "Domain list",
+            data_type = 'string')
 
         operation = LiteralInput(
             'operation',
             'Operation list',
-            abstract="Operation list",
-            data_type='string')
+            abstract = "Operation list",
+            data_type = 'string')
 
         response = LiteralOutput(
             'response',
             'Response',
-            abstract="Response",
-            data_type='string')
+            abstract = "Response",
+            data_type = 'string')
 
         inputs = [variable, domain, operation]
         outputs = [response]
 
         super(oph_esgf_subset, self).__init__(
             self._handler,
-            identifier='OPHIDIA.subset',
-            title='OPHIDIA.subset',
-            abstract="An Ophidia ESGF CWT operator used to extract a subset from a dataset",
-            version=_version,
-            inputs=inputs,
-            outputs=outputs,
-            store_supported=True,
-            status_supported=True
+            identifier = 'OPHIDIA.subset',
+            title = 'OPHIDIA.subset',
+            abstract = "An Ophidia ESGF CWT operator used to extract a subset from a dataset",
+            version = _version,
+            inputs = inputs,
+            outputs = outputs,
+            store_supported = True,
+            status_supported = True
         )
 
     def _handler(self, request, response):
@@ -167,9 +167,9 @@ class oph_esgf_subset(Process):
 
         out_name = str(uuid.uuid4())
 
-        cube.Cube.setclient(username=_username, password=_password, server=setting_host, port=setting_port)
-        cube1 = cube.Cube.importnc(imp_dim=input_dimensions, measure=input_variable, src_path=input_uri, subset_dims=input_subset_dims, subset_filter=input_subset_filter, subset_type=input_subset_type)
-        cube1.exportnc2(output_path=setting_outputpath, output_name=out_name)
+        cube.Cube.setclient(username = _username, password = _password, server = setting_host, port = setting_port)
+        cube1 = cube.Cube.importnc(imp_dim = input_dimensions, measure = input_variable, src_path = input_uri, subset_dims = input_subset_dims, subset_filter = input_subset_filter, subset_type = input_subset_type)
+        cube1.exportnc2(output_path = setting_outputpath, output_name = out_name)
         cube1.delete()
 
         output = oph_get_response(out_name, input_variable, input_domain)
@@ -195,40 +195,40 @@ class oph_esgf_max(Process):
         variable = LiteralInput(
             'variable',
             'Variable',
-            abstract="Variable list",
-            data_type='string')
+            abstract = "Variable list",
+            data_type = 'string')
 
         domain = LiteralInput(
             'domain',
             'Domain',
-            abstract="Domain list",
-            data_type='string')
+            abstract = "Domain list",
+            data_type = 'string')
 
         operation = LiteralInput(
             'operation',
             'Operation list',
-            abstract="Operation list",
-            data_type='string')
+            abstract = "Operation list",
+            data_type = 'string')
 
         response = LiteralOutput(
             'response',
             'Response',
-            abstract="Response",
-            data_type='string')
+            abstract = "Response",
+            data_type = 'string')
 
         inputs = [variable, domain, operation]
         outputs = [response]
 
         super(oph_esgf_max, self).__init__(
             self._handler,
-            identifier='OPHIDIA.max',
-            title='OPHIDIA.max',
-            abstract="An Ophidia ESGF CWT operator used to evaluate the maximum value of a dataset",
-            version=_version,
-            inputs=inputs,
-            outputs=outputs,
-            store_supported=True,
-            status_supported=True
+            identifier = 'OPHIDIA.max',
+            title = 'OPHIDIA.max',
+            abstract = "An Ophidia ESGF CWT operator used to evaluate the maximum value of a dataset",
+            version = _version,
+            inputs = inputs,
+            outputs = outputs,
+            store_supported = True,
+            status_supported = True
         )
 
     def _handler(self, request, response):
@@ -309,11 +309,11 @@ class oph_esgf_max(Process):
 
         out_name = str(uuid.uuid4())
 
-        cube.Cube.setclient(username=_username, password=_password, server=setting_host, port=setting_port)
-        cube1 = cube.Cube.importnc(imp_dim=input_dimensions, measure=input_variable, src_path=input_uri, subset_dims=input_subset_dims, subset_filter=input_subset_filter, subset_type=input_subset_type)
-        cube2 = cube1.reduce(operation='max')
+        cube.Cube.setclient(username = _username, password = _password, server = setting_host, port = setting_port)
+        cube1 = cube.Cube.importnc(imp_dim = input_dimensions, measure = input_variable, src_path = input_uri, subset_dims = input_subset_dims, subset_filter = input_subset_filter, subset_type = input_subset_type)
+        cube2 = cube1.reduce(operation = 'max')
         cube1.delete()
-        cube2.exportnc2(output_path=setting_outputpath, output_name=out_name)
+        cube2.exportnc2(output_path = setting_outputpath, output_name = out_name)
         cube2.delete()
 
         output = oph_get_response(out_name, input_variable, input_domain)
@@ -339,40 +339,40 @@ class oph_esgf_min(Process):
         variable = LiteralInput(
             'variable',
             'Variable',
-            abstract="Variable list",
-            data_type='string')
+            abstract = "Variable list",
+            data_type = 'string')
 
         domain = LiteralInput(
             'domain',
             'Domain',
-            abstract="Domain list",
-            data_type='string')
+            abstract = "Domain list",
+            data_type = 'string')
 
         operation = LiteralInput(
             'operation',
             'Operation list',
-            abstract="Operation list",
-            data_type='string')
+            abstract = "Operation list",
+            data_type = 'string')
 
         response = LiteralOutput(
             'response',
             'Response',
-            abstract="Response",
-            data_type='string')
+            abstract = "Response",
+            data_type = 'string')
 
         inputs = [variable, domain, operation]
         outputs = [response]
 
         super(oph_esgf_min, self).__init__(
             self._handler,
-            identifier='OPHIDIA.min',
-            title='OPHIDIA.min',
-            abstract="An Ophidia ESGF CWT operator used to evaluate the minimum value of a dataset",
-            version=_version,
-            inputs=inputs,
-            outputs=outputs,
-            store_supported=True,
-            status_supported=True
+            identifier = 'OPHIDIA.min',
+            title = 'OPHIDIA.min',
+            abstract = "An Ophidia ESGF CWT operator used to evaluate the minimum value of a dataset",
+            version = _version,
+            inputs = inputs,
+            outputs = outputs,
+            store_supported = True,
+            status_supported = True
         )
 
     def _handler(self, request, response):
@@ -453,11 +453,11 @@ class oph_esgf_min(Process):
 
         out_name = str(uuid.uuid4())
 
-        cube.Cube.setclient(username=_username, password=_password, server=setting_host, port=setting_port)
-        cube1 = cube.Cube.importnc(imp_dim=input_dimensions, measure=input_variable, src_path=input_uri, subset_dims=input_subset_dims, subset_filter=input_subset_filter, subset_type=input_subset_type)
-        cube2 = cube1.reduce(operation='min')
+        cube.Cube.setclient(username = _username, password = _password, server = setting_host, port = setting_port)
+        cube1 = cube.Cube.importnc(imp_dim = input_dimensions, measure = input_variable, src_path = input_uri, subset_dims = input_subset_dims, subset_filter = input_subset_filter, subset_type = input_subset_type)
+        cube2 = cube1.reduce(operation = 'min')
         cube1.delete()
-        cube2.exportnc2(output_path=setting_outputpath, output_name=out_name)
+        cube2.exportnc2(output_path = setting_outputpath, output_name = out_name)
         cube2.delete()
         
         output = oph_get_response(out_name, input_variable, input_domain)
@@ -483,40 +483,40 @@ class oph_esgf_avg(Process):
         variable = LiteralInput(
             'variable',
             'Variable',
-            abstract="Variable list",
-            data_type='string')
+            abstract = "Variable list",
+            data_type = 'string')
 
         domain = LiteralInput(
             'domain',
             'Domain',
-            abstract="Domain list",
-            data_type='string')
+            abstract = "Domain list",
+            data_type = 'string')
 
         operation = LiteralInput(
             'operation',
             'Operation list',
-            abstract="Operation list",
-            data_type='string')
+            abstract = "Operation list",
+            data_type = 'string')
 
         response = LiteralOutput(
             'response',
             'Response',
-            abstract="Response",
-            data_type='string')
+            abstract = "Response",
+            data_type = 'string')
 
         inputs = [variable, domain, operation]
         outputs = [response]
 
         super(oph_esgf_avg, self).__init__(
             self._handler,
-            identifier='OPHIDIA.avg',
-            title='OPHIDIA.avg',
-            abstract="An Ophidia ESGF CWT operator used to evaluate the mean value of a dataset",
-            version=_version,
-            inputs=inputs,
-            outputs=outputs,
-            store_supported=True,
-            status_supported=True
+            identifier = 'OPHIDIA.avg',
+            title = 'OPHIDIA.avg',
+            abstract = "An Ophidia ESGF CWT operator used to evaluate the mean value of a dataset",
+            version = _version,
+            inputs = inputs,
+            outputs = outputs,
+            store_supported = True,
+            status_supported = True
         )
 
     def _handler(self, request, response):
@@ -597,12 +597,154 @@ class oph_esgf_avg(Process):
 
         out_name = str(uuid.uuid4())
 
-        cube.Cube.setclient(username=_username, password=_password, server=setting_host, port=setting_port)
-        cube1 = cube.Cube.importnc(imp_dim=input_dimensions, measure=input_variable, src_path=input_uri, subset_dims=input_subset_dims, subset_filter=input_subset_filter, subset_type=input_subset_type)
-        cube2 = cube1.reduce(operation='avg')
+        cube.Cube.setclient(username = _username, password = _password, server = setting_host, port = setting_port)
+        cube1 = cube.Cube.importnc(imp_dim = input_dimensions, measure = input_variable, src_path = input_uri, subset_dims = input_subset_dims, subset_filter = input_subset_filter, subset_type = input_subset_type)
+        cube2 = cube1.reduce(operation = 'avg')
         cube1.delete()
-        cube2.exportnc2(output_path=setting_outputpath, output_name=out_name)
+        cube2.exportnc2(output_path = setting_outputpath, output_name = out_name)
         cube2.delete()
+        
+        output = oph_get_response(out_name, input_variable, input_domain)
+
+        LOGGER.debug("Response: %s" % output)
+
+        response.update_status("Post-processing", 99)
+
+        if len(output) > 0:
+            response.outputs['response'].data = output
+
+        response.update_status("Succeded", 100)
+
+        return response
+
+class oph_esgf_aggregate(Process):
+
+    def __init__(self):
+
+        inputs = []
+        outputs = []
+
+        variable = LiteralInput(
+            'variable',
+            'Variable',
+            abstract = "Variable list",
+            data_type = 'string')
+
+        domain = LiteralInput(
+            'domain',
+            'Domain',
+            abstract = "Domain list",
+            data_type = 'string')
+
+        operation = LiteralInput(
+            'operation',
+            'Operation list',
+            abstract = "Operation list",
+            data_type = 'string')
+
+        response = LiteralOutput(
+            'response',
+            'Response',
+            abstract = "Response",
+            data_type = 'string')
+
+        inputs = [variable, domain, operation]
+        outputs = [response]
+
+        super(oph_esgf_aggregate, self).__init__(
+            self._handler,
+            identifier = 'OPHIDIA.aggregate',
+            title = 'OPHIDIA.aggregate',
+            abstract = "An Ophidia ESGF CWT operator used to aggregate files of a dataset into only one file",
+            version = _version,
+            inputs = inputs,
+            outputs = outputs,
+            store_supported = True,
+            status_supported = True
+        )
+
+    def _handler(self, request, response):
+
+        response.update_status("Pre-processing", 1)
+
+        response.outputs['response'].data = ""
+
+        variables_as_string = request.inputs['variable'][0].data
+        domains_as_string = request.inputs['domain'][0].data
+        operations_as_string = request.inputs['operation'][0].data
+
+        LOGGER.debug("Variable list: %s" % variables_as_string)
+        LOGGER.debug("Domain list: %s" % domains_as_string)
+        LOGGER.debug("Operation list: %s" % operations_as_string)
+        
+        domains_as_string = request.inputs['domain'][0].data
+        variables_as_string = request.inputs['variable'][0].data
+        operations_as_string = request.inputs['operation'][0].data
+
+        inputString = ''
+        if domains_as_string:
+            inputString = inputString + 'domain=' + domains_as_string + ';'
+        if variables_as_string:
+            inputString = inputString + 'variable=' + variables_as_string + ';'
+        if operations_as_string:
+            inputString = inputString + 'operation=' + operations_as_string + ';'
+
+        LOGGER.debug("Command: %s" % inputString)
+
+        esgf = EsgfInput(inputString)
+
+        domains = esgf.getDomains()
+        variables = esgf.getVariables()
+        operations = esgf.getOperations()
+
+        response.update_status("Running", 2)
+
+        v = variables[0]
+        input_variable = v.id
+        input_uri = v.uri
+        input_domain = v.domain
+        for d in domains:
+            if d.id == input_domain:
+                working_domain = d
+                dimensions = working_domain.dimensions
+            else:
+                LOGGER.debug("Variable {} points at no passed domain" % format(v.id))
+
+        dimension_names = list(dimensions)
+
+        input_subset_dims = ''
+        for dimension_name in dimension_names:
+            input_subset_dims = input_subset_dims + dimension_name
+            if dimension_name != dimension_names[-1]:
+                input_subset_dims = input_subset_dims + '|'
+
+        input_subset_filter = ''
+        for dimension_name in dimension_names:
+            start = str(dimensions[dimension_name]['start'])
+            end = str(dimensions[dimension_name]['end'])
+            input_subset_filter = input_subset_filter + start + ':' + end
+            if dimension_name != dimension_names[-1]:
+                input_subset_filter = input_subset_filter + '|'
+
+        input_subset_type = ''
+        for dimension_name in dimension_names:
+            crs = str(dimensions[dimension_name]['crs'])
+            if crs == 'values':
+                crs = 'coord'
+            input_subset_type = input_subset_type + crs
+            if dimension_name != dimension_names[-1]:
+                input_subset_type = input_subset_type + '|'
+
+        LOGGER.debug("Execute the job")
+
+        out_name = str(uuid.uuid4())
+
+        arguments = input_uri + '|' + setting_outputpath + '|' + out_name
+
+        # Input uri refers to files to be aggregated as is; user domain is negleted
+
+        cube.Cube.setclient(username = _username, password = _password, server = setting_host, port = setting_port)
+        cube.Cube.script(script = "OPHIDIA.aggregate.sh", args = arguments)
         
         output = oph_get_response(out_name, input_variable, input_domain)
 
