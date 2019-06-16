@@ -40,6 +40,9 @@ setting_port = cfg['setting_port']
 setting_outputpath = cfg['setting_outputpath']
 setting_outputurl = cfg['setting_outputurl']
 
+def oph_get_response(filename, variable, domain):
+    return "{ \"uri\": \"" + setting_outputurl + "/" + filename + ".nc" + "\", \"id\": \"" + variable + "\", \"domain\": \"" + domain + "\", \"mime-type\": \"application/netcdf\" }"
+
 class oph_esgf_subset(Process):
 
     def __init__(self):
@@ -169,14 +172,14 @@ class oph_esgf_subset(Process):
         cube1.exportnc2(output_path=setting_outputpath, output_name=out_name)
         cube1.delete()
 
-        out_link = setting_outputurl + '/' + out_name + '.nc'
+        output = oph_get_response(out_name, input_variable, input_domain)
         
-        LOGGER.debug("Response: %s" % out_link)
+        LOGGER.debug("Response: %s" % output)
 
         response.update_status("Post-processing", 99)
 
-        if len(out_link) > 0:
-            response.outputs['response'].data = out_link
+        if len(output) > 0:
+            response.outputs['response'].data = output
 
         response.update_status("Succeded", 100)
 
@@ -313,14 +316,14 @@ class oph_esgf_max(Process):
         cube2.exportnc2(output_path=setting_outputpath, output_name=out_name)
         cube2.delete()
 
-        out_link = setting_outputurl + '/' + out_name + '.nc'
+        output = oph_get_response(out_name, input_variable, input_domain)
         
-        LOGGER.debug("Response: %s" % out_link)
+        LOGGER.debug("Response: %s" % output)
 
         response.update_status("Post-processing", 99)
 
-        if len(out_link) > 0:
-            response.outputs['response'].data = out_link
+        if len(output) > 0:
+            response.outputs['response'].data = output
 
         response.update_status("Succeded", 100)
 
@@ -457,14 +460,14 @@ class oph_esgf_min(Process):
         cube2.exportnc2(output_path=setting_outputpath, output_name=out_name)
         cube2.delete()
         
-        out_link = setting_outputurl + '/' + out_name + '.nc'
+        output = oph_get_response(out_name, input_variable, input_domain)
 
-        LOGGER.debug("Response: %s" % out_link)
+        LOGGER.debug("Response: %s" % output)
 
         response.update_status("Post-processing", 99)
 
-        if len(out_link) > 0:
-            response.outputs['response'].data = out_link
+        if len(output) > 0:
+            response.outputs['response'].data = output
 
         response.update_status("Succeded", 100)
 
@@ -601,14 +604,14 @@ class oph_esgf_avg(Process):
         cube2.exportnc2(output_path=setting_outputpath, output_name=out_name)
         cube2.delete()
         
-        out_link = setting_outputurl + '/' + out_name + '.nc'
+        output = oph_get_response(out_name, input_variable, input_domain)
 
-        LOGGER.debug("Response: %s" % out_link)
+        LOGGER.debug("Response: %s" % output)
 
         response.update_status("Post-processing", 99)
 
-        if len(out_link) > 0:
-            response.outputs['response'].data = out_link
+        if len(output) > 0:
+            response.outputs['response'].data = output
 
         response.update_status("Succeded", 100)
 

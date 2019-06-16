@@ -78,10 +78,13 @@ Create the folders for PyWPS log file and WPS Responses (based on parameters set
 
 ```
 sudo mkdir -p /var/www/html/wpsoutputs
+sudo mkdir -p /var/www/wps
 sudo mkdir -p /var/log/wps
 sudo chown root:apache /var/www/html/wpsoutputs
+sudo chown root:apache /var/www/wps
 sudo chown root:apache /var/log/wps
 sudo chmod 775 /var/www/html/wpsoutputs
+sudo chmod 775 /var/www/wps
 sudo chmod 775 /var/log/wps
 ```
 
