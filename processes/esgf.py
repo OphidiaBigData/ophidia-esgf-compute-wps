@@ -746,7 +746,7 @@ class oph_esgf_aggregate(Process):
         # Input files are temporally stored in folder: setting_outputpath + '/' + out_name
         arguments = setting_outputpath + '|' + out_name + '|' + input_uri + '|' + input_variable
  
-        cube.Cube.script(script = "OPHIDIA.aggregate.sh", args = arguments)
+        cube.Cube.script(script = "OPHIDIA.aggregate.sh", args = arguments, space = 'yes')
         
         output = oph_get_response(out_name, input_variable, input_domain)
 
