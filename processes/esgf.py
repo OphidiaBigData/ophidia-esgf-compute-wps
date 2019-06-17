@@ -742,12 +742,9 @@ class oph_esgf_aggregate(Process):
         out_name = str(uuid.uuid4())
 
         cube.Cube.setclient(username = _username, password = _password, server = setting_host, port = setting_port)
-        cube1 = cube.Cube.importnc(imp_dim = input_dimensions, measure = input_variable, src_path = input_uri, subset_dims = input_subset_dims, subset_filter = input_subset_filter, subset_type = input_subset_type)
-        cube1.exportnc2(output_path = setting_outputpath + '/' + out_name)
-        cube1.delete()
 
         # Input files are temporally stored in folder: setting_outputpath + '/' + out_name
-        arguments = setting_outputpath + '|' + out_name + '|' + input_variable
+        arguments = setting_outputpath + '|' + out_name + '|' + input_uri + '|' + input_variable
  
         cube.Cube.script(script = "OPHIDIA.aggregate.sh", args = arguments)
         
