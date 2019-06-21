@@ -103,11 +103,7 @@ class Operation(object):
         # mandatory parameters. I am sure they are there
         self.name = dict_operation['name']
         self.input = dict_operation['input']
-        
-        try:
-            self.axes = dict_operation['axes']
-        except KeyError:
-            self.axes = 'not_specified'
+        self.axes = dict_operation['axes'].split('|')
             
     
     def __repr__(self):
@@ -124,7 +120,7 @@ class Operation(object):
 class EsgfInput(object):
     
     def __init__(self, input_string):
-        self.__dataInputs = input_string
+        self.__dataInputs = input_string + ';'
         self.__formattedInputs = self.__formatInput()
         self.__dictInput = self.__dictfy()
 
@@ -153,17 +149,18 @@ class EsgfInput(object):
         
         formattedInputs = re.sub(r'\"input\":\[.*?\]','\"input\":\"\"', dataInputs)
 
-        #extract the domain section of the input
-        domainInputs = re.findall('domain=\[(.+?)\];', dataInputs)[0]
-
-        expanded_domainInputs =self.__expandShortcuts(domainInputs)
-
-        #replacing the esgf dimension input names with those of .nc files
-        expanded_domainInputs = expanded_domainInputs.replace('longitude','lon').replace('latitude','lat').replace('level','lev')
-
-        #replacing the previous domain section with the extended one
-        formattedInputs = formattedInputs.replace(domainInputs, expanded_domainInputs)
-            
+        if 'domain=[' in dataInputs:
+            #extract the domain section of the input
+            domainInputs = re.findall('domain=\[(.+?)\];', dataInputs)[0]
+    
+            expanded_domainInputs =self.__expandShortcuts(domainInputs)
+    
+            #replacing the esgf dimension input names with those of .nc files
+            expanded_domainInputs = expanded_domainInputs.replace('longitude','lon').replace('latitude','lat').replace('level','lev')
+    
+            #replacing the previous domain section with the extended one
+            formattedInputs = formattedInputs.replace(domainInputs, expanded_domainInputs)
+                
         return formattedInputs
     
     
@@ -233,13 +230,13 @@ class EsgfInput(object):
             # convert the value and write it into the dictionary, under the keyword "key"
             dictInputs[key] = ast.literal_eval(value)
         
-        #IF DOMAIN IN KEY
-        # adding step=1 as default value
-        self.__add_DomainStep(dictInputs)
+        if 'domain' in dictInputs:
+            # adding step=1 as default value
+            self.__add_DomainStep(dictInputs)
         
-        #IF OPERATION IN KEY
-        # putting the initial operation's input list as element
-        self.__restoreOperationInputs(dictInputs)
+        if 'operation' in dictInputs:
+            # putting the initial operation's input list as element
+            self.__restoreOperationInputs(dictInputs)
 
         return dictInputs
 
@@ -275,11 +272,35 @@ class EsgfInput(object):
     def getOperations(self):
         operation_list = []
         
-        for sub_operation in self.__dictInput['operation']:
+        if 'operation' in self.__dictInput:
+            for sub_operation in self.__dictInput['operation']:
+                
+                values = self.__dictInput['operation'][sub_operation]
+                operation = Operation(values)
+                operation_list.append(operation)        
             
-            values = self.__dictInput['operation'][sub_operation]
-            operation = Operation(values)
-            operation_list.append(operation)        
-            
-        return operation_list 
+            return operation_list 
+        
+        
+    def __repr__(self):
+        d = self.__dictInput
+        
+        dictstring = 'ESGF Input Object' + '\n'
 
+        def prettyprint (d, indent, dictstring):
+            
+            for key, value in d.items():
+                dictstring = dictstring + '\n' + '  ' * indent + ' ' + str(key)
+                
+                if isinstance(value, dict):
+                    dictstring = prettyprint(value, indent+1, dictstring)
+                    
+                else:
+                    dictstring = dictstring + ': ' + str(value)
+            
+            return dictstring
+        
+        dictstring=prettyprint(d, 0, dictstring)
+        
+        return dictstring
+        
