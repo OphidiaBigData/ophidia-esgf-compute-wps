@@ -161,10 +161,18 @@ class oph_esgf_subset(Process):
             if dimension_name != dimension_names[-1]:
                 input_subset_type = input_subset_type + '|'
 
-        input_dimensions = 'time' # Dimension along reduction is done
-
-        LOGGER.debug("Execute the job")
-
+        
+        # Case a single operation is provided
+        # Does it make sense to have multiple operations in the dataInput string?
+        o = operations[0]
+        input_dimensions = ''
+        
+        for dimension in o.axes:
+            if dimension != o.axes[-1]:
+                input_dimensions = input_dimensions + dimension + '|'
+            else:
+                input_dimensions = input_dimensions + dimension
+        
         out_name = str(uuid.uuid4())
 
         cube.Cube.setclient(username = _username, password = _password, server = setting_host, port = setting_port)
@@ -184,6 +192,7 @@ class oph_esgf_subset(Process):
         response.update_status("Succeded", 100)
 
         return response
+
 
 class oph_esgf_max(Process):
 
@@ -303,7 +312,16 @@ class oph_esgf_max(Process):
             if dimension_name != dimension_names[-1]:
                 input_subset_type = input_subset_type + '|'
 
-        input_dimensions = 'time' # Dimension along reduction is done
+        # Case a single operation is provided
+        # Does it make sense to have multiple operations in the dataInput string?
+        o = operations[0]
+        input_dimensions = ''
+        
+        for dimension in o.axes:
+            if dimension != o.axes[-1]:
+                input_dimensions = input_dimensions + dimension + '|'
+            else:
+                input_dimensions = input_dimensions + dimension
 
         LOGGER.debug("Execute the job")
 
@@ -447,7 +465,16 @@ class oph_esgf_min(Process):
             if dimension_name != dimension_names[-1]:
                 input_subset_type = input_subset_type + '|'
 
-        input_dimensions = 'time' # Dimension along reduction is done
+        # Case a single operation is provided
+        # Does it make sense to have multiple operations in the dataInput string?
+        o = operations[0]
+        input_dimensions = ''
+        
+        for dimension in o.axes:
+            if dimension != o.axes[-1]:
+                input_dimensions = input_dimensions + dimension + '|'
+            else:
+                input_dimensions = input_dimensions + dimension
 
         LOGGER.debug("Execute the job")
 
@@ -472,6 +499,7 @@ class oph_esgf_min(Process):
         response.update_status("Succeded", 100)
 
         return response
+
 
 class oph_esgf_avg(Process):
 
@@ -591,7 +619,16 @@ class oph_esgf_avg(Process):
             if dimension_name != dimension_names[-1]:
                 input_subset_type = input_subset_type + '|'
 
-        input_dimensions = 'time' # Dimension along reduction is done
+        # Case a single operation is provided
+        # Does it make sense to have multiple operations in the dataInput string?
+        o = operations[0]
+        input_dimensions = ''
+        
+        for dimension in o.axes:
+            if dimension != o.axes[-1]:
+                input_dimensions = input_dimensions + dimension + '|'
+            else:
+                input_dimensions = input_dimensions + dimension
 
         LOGGER.debug("Execute the job")
 
@@ -616,6 +653,7 @@ class oph_esgf_avg(Process):
         response.update_status("Succeded", 100)
 
         return response
+
 
 class oph_esgf_aggregate(Process):
 
@@ -735,7 +773,16 @@ class oph_esgf_aggregate(Process):
             if dimension_name != dimension_names[-1]:
                 input_subset_type = input_subset_type + '|'
 
-        input_dimensions = 'time' # Implici dimension
+        # Case a single operation is provided
+        # Does it make sense to have multiple operations in the dataInput string?
+        o = operations[0]
+        input_dimensions = ''
+        
+        for dimension in o.axes:
+            if dimension != o.axes[-1]:
+                input_dimensions = input_dimensions + dimension + '|'
+            else:
+                input_dimensions = input_dimensions + dimension
 
         LOGGER.debug("Execute the job")
 
