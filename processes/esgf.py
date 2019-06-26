@@ -172,6 +172,8 @@ class oph_esgf_subset(Process):
                 input_dimensions = input_dimensions + dimension + '|'
             else:
                 input_dimensions = input_dimensions + dimension
+
+        LOGGER.debug("Execute the job")
         
         out_name = str(uuid.uuid4())
 
