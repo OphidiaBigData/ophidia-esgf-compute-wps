@@ -11,6 +11,7 @@ It implements a process for PyWPS - Python Web Processing Service (http://pywps.
 This software requires Python 2.7, PyOphidia and PyWPS 4.2 - Python Web Processing Service (http://pywps.org/), which can be built from sources provided that requirements are met as reported in PyWPS official documentation (https://pywps.readthedocs.io/en/latest/install.html). In particulat, install the following modules:
 
 - gdal-python
+- python-pandas
 
 It is recommended to start the service as module of Apache web server (https://www.apache.org/), so that TLS could be exploited to encrypt Ophidia credentials coded in WPS Requests. In this case, the following packages are required
 
