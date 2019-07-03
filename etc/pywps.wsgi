@@ -25,7 +25,8 @@ processes = [
     oph_esgf_max(),
     oph_esgf_min(),
     oph_esgf_avg(),
-    oph_esgf_aggregate()
+    oph_esgf_aggregate(),
+    oph_esgf_regridding()
 ]
 
 application = Service(
