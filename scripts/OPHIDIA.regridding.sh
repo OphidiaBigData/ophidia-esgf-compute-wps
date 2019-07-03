@@ -49,15 +49,15 @@ if [ "$NewGrid" != "" ]; then
 	let YSIZE+=1
 
 	(
-		cat <<'EOF'
-		gridtype = lonlat
-		xsize = XSIZE
-		ysize = YSIZE
-		xfirst = XFIRST
-		xinc = XINC
-		yfirst = YFIRST
-		yinc = YINC
-		EOF
+cat <<'EOF'
+gridtype = lonlat
+xsize = XSIZE
+ysize = YSIZE
+xfirst = XFIRST
+xinc = XINC
+yfirst = YFIRST
+yinc = YINC
+EOF
 	) > $DataPath/.grid
 	sed -i "s/XSIZE/$XSIZE/g" $DataPath/.grid
 	sed -i "s/YSIZE/$YSIZE/g" $DataPath/.grid
