@@ -102,10 +102,6 @@ class oph_esgf_subset(Process):
         LOGGER.debug("Variable list: %s" % variables_as_string)
         LOGGER.debug("Domain list: %s" % domains_as_string)
         LOGGER.debug("Operation list: %s" % operations_as_string)
-        
-        domains_as_string = request.inputs['domain'][0].data
-        variables_as_string = request.inputs['variable'][0].data
-        operations_as_string = request.inputs['operation'][0].data
 
         inputString = ''
         if domains_as_string:
@@ -255,10 +251,6 @@ class oph_esgf_max(Process):
         LOGGER.debug("Variable list: %s" % variables_as_string)
         LOGGER.debug("Domain list: %s" % domains_as_string)
         LOGGER.debug("Operation list: %s" % operations_as_string)
-        
-        domains_as_string = request.inputs['domain'][0].data
-        variables_as_string = request.inputs['variable'][0].data
-        operations_as_string = request.inputs['operation'][0].data
 
         inputString = ''
         if domains_as_string:
@@ -408,10 +400,6 @@ class oph_esgf_min(Process):
         LOGGER.debug("Variable list: %s" % variables_as_string)
         LOGGER.debug("Domain list: %s" % domains_as_string)
         LOGGER.debug("Operation list: %s" % operations_as_string)
-        
-        domains_as_string = request.inputs['domain'][0].data
-        variables_as_string = request.inputs['variable'][0].data
-        operations_as_string = request.inputs['operation'][0].data
 
         inputString = ''
         if domains_as_string:
@@ -562,10 +550,6 @@ class oph_esgf_avg(Process):
         LOGGER.debug("Variable list: %s" % variables_as_string)
         LOGGER.debug("Domain list: %s" % domains_as_string)
         LOGGER.debug("Operation list: %s" % operations_as_string)
-        
-        domains_as_string = request.inputs['domain'][0].data
-        variables_as_string = request.inputs['variable'][0].data
-        operations_as_string = request.inputs['operation'][0].data
 
         inputString = ''
         if domains_as_string:
@@ -716,10 +700,6 @@ class oph_esgf_aggregate(Process):
         LOGGER.debug("Variable list: %s" % variables_as_string)
         LOGGER.debug("Domain list: %s" % domains_as_string)
         LOGGER.debug("Operation list: %s" % operations_as_string)
-        
-        domains_as_string = request.inputs['domain'][0].data
-        variables_as_string = request.inputs['variable'][0].data
-        operations_as_string = request.inputs['operation'][0].data
 
         inputString = ''
         if domains_as_string:
@@ -835,6 +815,27 @@ class oph_esgf_regridding(Process):
             abstract = "Operation list",
             data_type = 'string')
 
+        griddertool = LiteralInput(
+            'griddertool',
+            'Gridder Tool',
+            abstract = "Gridder Tool",
+            default="ESMF",
+            data_type = 'string')
+
+        griddermethod = LiteralInput(
+            'griddermethod',
+            'Gridder Method',
+            abstract = "Gridder Method",
+            default="linear",
+            data_type = 'string')
+
+        grid = LiteralInput(
+            'grid',
+            'Grid',
+            abstract = "Grid",
+            default="T85",
+            data_type = 'string')
+
         response = LiteralOutput(
             'response',
             'Response',
@@ -865,14 +866,16 @@ class oph_esgf_regridding(Process):
         variables_as_string = request.inputs['variable'][0].data
         domains_as_string = request.inputs['domain'][0].data
         operations_as_string = request.inputs['operation'][0].data
+        griddertool_as_string = request.inputs['griddertool'][0].data
+        griddermethod_as_string = request.inputs['griddermethod'][0].data
+        grid_as_string = request.inputs['grid'][0].data
 
         LOGGER.debug("Variable list: %s" % variables_as_string)
         LOGGER.debug("Domain list: %s" % domains_as_string)
         LOGGER.debug("Operation list: %s" % operations_as_string)
-        
-        domains_as_string = request.inputs['domain'][0].data
-        variables_as_string = request.inputs['variable'][0].data
-        operations_as_string = request.inputs['operation'][0].data
+        LOGGER.debug("Gridder tool list: %s" % griddertool_as_string)
+        LOGGER.debug("Gridder method list: %s" % griddermethod_as_string)
+        LOGGER.debug("Grid list: %s" % grid_as_string)
 
         inputString = ''
         if domains_as_string:
@@ -889,6 +892,18 @@ class oph_esgf_regridding(Process):
         domains = esgf.getDomains()
         variables = esgf.getVariables()
         operations = esgf.getOperations()
+
+        allowed = 0
+        if griddermethod_as_string:
+            if griddermethod_as_string == "linear":
+                allowed = 1
+            if griddermethod_as_string == "conservative":
+                allowed = 1
+            if griddermethod_as_string == "nearestneighbor":
+                allowed = 1
+
+        if allowed == 0:
+            raise RuntimeError('Gridded method not allowed')
 
         response.update_status("Running", 2)
 
