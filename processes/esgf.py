@@ -901,13 +901,13 @@ class oph_esgf_regridding(Process):
 
         allowed = 0
         if griddertool_as_string:
-            if griddermethod_as_string == "ESMF":
+            if griddertool_as_string == "ESMF":
                 allowed = 1
-            if griddermethod_as_string == "CDO":
+            if griddertool_as_string == "CDO":
                 allowed = 1
 
         if allowed == 0:
-            raise RuntimeError('Gridded tool not allowed')
+            raise RuntimeError("Gridder tool {} not allowed" % griddertool_as_string)
 
         allowed = 0
         if griddermethod_as_string:
@@ -919,7 +919,7 @@ class oph_esgf_regridding(Process):
                 allowed = 1
 
         if allowed == 0:
-            raise RuntimeError('Gridded method not allowed')
+            raise RuntimeError("Gridder method {} not allowed" % griddermethod_as_string)
 
         response.update_status("Running", 2)
 

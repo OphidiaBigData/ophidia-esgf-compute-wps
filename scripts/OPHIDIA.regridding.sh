@@ -42,44 +42,50 @@ LatRange=${6}
 LonRange=${7}
 NewGrid=${8}
 
+if [ "$Tool" == "ESMF" ]; then
+	echo "Gridder method $Method is not supported yet"
+	exit 2
+fi
+
+if [ "$Tool" == "CDO" ]; then
+	if [ "$Method" != "linear" ]; then
+		echo "Gridder method '$Method' is not supported yet"
+		exit 2
+	fi
+fi
+
 cd $OutputPath
 if [ $? -ne 0 ]; then
 	echo "Folder $OutputPath is not allowed"
-	exit 2
+	exit 3
 fi
 if [ "`pwd`" == "/" ]; then
 	echo "Wrong parameter error"
-	exit 3
+	exit 4
 fi
 
 mkdir -p $DataPath
 cd $DataPath
 if [ $? -ne 0 ]; then
 	echo "Folder $OutputPath is not allowed"
-	exit 2
+	cd $OutputPath
+	rm -rf $DataPath
+	exit 3
 fi
 if [ "`pwd`" == "/" ]; then
 	echo "Wrong parameter error"
-	exit 3
-fi
-
-if [ "$Tool" == "ESMF" ]; then
-	echo "Gridder method $Method is not supported yet"
+	cd $OutputPath
+	rm -rf $DataPath
 	exit 4
-fi
-
-if [ "$Tool" == "CDO" ]; then
-	if [ "$Method" != "linear" ]; then
-		echo "Gridder method '$Method' is not supported yet"
-		exit 4
-	fi
 fi
 
 infile=$FileName
 outfile=`sed -e 's#.*/\(\)#\1#' <<< "$infile"`
 ncks -a -h -O $infile $outfile
 if [ $? -ne 0 ]; then
-	exit 2
+	cd $OutputPath
+	rm -rf $DataPath
+	exit 5
 fi
 InFile=$DataPath/$outfile
 
@@ -129,10 +135,10 @@ EOF
 	cdo remapbil,$DataPath/.grid $InFile $tmp
 	mv $tmp $OutputPath/${2}.nc
 
-	cd $OutputPath
-	rm -rf $DataPath
-
 fi
+
+cd $OutputPath
+rm -rf $DataPath
 
 exit 0
 
