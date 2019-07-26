@@ -819,6 +819,8 @@ class oph_esgf_regridding(Process):
             'griddertool',
             'Gridder Tool',
             abstract = "Gridder Tool",
+            min_occurs=0,
+            max_occurs=1,
             default="ESMF",
             data_type = 'string')
 
@@ -826,6 +828,8 @@ class oph_esgf_regridding(Process):
             'griddermethod',
             'Gridder Method',
             abstract = "Gridder Method",
+            min_occurs=0,
+            max_occurs=1,
             default="linear",
             data_type = 'string')
 
@@ -833,6 +837,8 @@ class oph_esgf_regridding(Process):
             'grid',
             'Grid',
             abstract = "Grid",
+            min_occurs=0,
+            max_occurs=1,
             default="T85",
             data_type = 'string')
 
@@ -842,7 +848,7 @@ class oph_esgf_regridding(Process):
             abstract = "Response",
             data_type = 'string')
 
-        inputs = [variable, domain, operation]
+        inputs = [variable, domain, operation, griddertool, griddermethod, grid]
         outputs = [response]
 
         super(oph_esgf_regridding, self).__init__(
