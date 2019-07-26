@@ -8,7 +8,7 @@ It implements a process for PyWPS - Python Web Processing Service (http://pywps.
 
 ### Requirements
 
-This software requires Python 2.7, PyOphidia and PyWPS 4.2 - Python Web Processing Service (http://pywps.org/), which can be built from sources provided that requirements are met as reported in PyWPS official documentation (https://pywps.readthedocs.io/en/latest/install.html). In particulat, install the following modules:
+This software requires Python 3.4 or higher, PyOphidia and PyWPS 4.2 - Python Web Processing Service (http://pywps.org/), which can be built from sources provided that requirements are met as reported in PyWPS official documentation (https://pywps.readthedocs.io/en/latest/install.html). In particulat, install the following modules:
 
 - gdal-python
 - python-pandas
@@ -65,6 +65,19 @@ Configure Apache by saving the following specification in */etc/httpd/conf.d/pyt
 		WSGIApplicationGroup %{GLOBAL}
 		Require all granted
 	</Directory>
+
+If necessary, add PYTHONPATH to Apache configuration by using
+
+```
+systemctl edit httpd
+```
+
+and appending
+
+```
+[Service]
+Environment="PYTHONPATH=/path/to/python"
+```
 
 By default it is assumed that Ophidia Server is running on the same node where PyWPS works and listening to port 11732. Otherwise, change service address (IP address and port number) by editing */usr/local/ophidia/extra/wps/etc/config.yml*.
 
