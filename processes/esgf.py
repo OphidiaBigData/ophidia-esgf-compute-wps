@@ -900,6 +900,16 @@ class oph_esgf_regridding(Process):
         operations = esgf.getOperations()
 
         allowed = 0
+        if griddertool_as_string:
+            if griddermethod_as_string == "ESMF":
+                allowed = 1
+            if griddermethod_as_string == "CDO":
+                allowed = 1
+
+        if allowed == 0:
+            raise RuntimeError('Gridded tool not allowed')
+
+        allowed = 0
         if griddermethod_as_string:
             if griddermethod_as_string == "linear":
                 allowed = 1
@@ -960,13 +970,16 @@ class oph_esgf_regridding(Process):
             else:
                 input_dimensions = input_dimensions + dimension
 
+        # TODO
+        # Use grid_as_string to set the grid in case griddermethod_as_string == "CDO"
+
         LOGGER.debug("Execute the job")
 
         out_name = str(uuid.uuid4())
 
         cube.Cube.setclient(username = _username, password = _password, server = setting_host, port = setting_port)
 
-        arguments = setting_outputpath + '|' + out_name + '|' + input_uri + '|' + '-90:90|0:360|r360x180'
+        arguments = setting_outputpath + '|' + out_name + '|' + input_uri + '|' + griddertool_as_string + '|' + griddermethod_as_string + '|' + '-90:90|0:360|r360x180'
  
         cube.Cube.script(script = "OPHIDIA.regridding.sh", args = arguments)
         
