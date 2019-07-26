@@ -41,6 +41,8 @@ fi
 if [ "`pwd`" == "/" ]; then
 	exit 3
 fi
+
+mkdir -p $DataPath
 cd $DataPath
 if [ $? -ne 0 ]; then
 	exit 2
