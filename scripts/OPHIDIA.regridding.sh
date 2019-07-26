@@ -4,9 +4,11 @@
 # 1: output path
 # 2: output filename without ".nc"
 # 3: input file
-# 4: geographic subset for latitude (e.g. 30:45)
-# 5: geographic subset for longitude (e.g. 0:40)
-# 6: grid of output map using the format r<lon>x<lat> (e.g. r360x180)
+# 4: gridder tool
+# 5: gridder method
+# 6: geographic subset for latitude (e.g. 30:45)
+# 7: geographic subset for longitude (e.g. 0:40)
+# 8: grid of output map using the format r<lon>x<lat> (e.g. r360x180)
 
 if [ "${1}" == "" ]; then
 	exit 1
@@ -43,7 +45,7 @@ LonRange=${7}
 NewGrid=${8}
 
 if [ "$Tool" == "ESMF" ]; then
-	echo "Gridder method $Method is not supported yet"
+	echo "Gridder tool '$Tool' is not supported yet"
 	exit 2
 fi
 
@@ -90,6 +92,8 @@ fi
 InFile=$DataPath/$outfile
 
 if [ "$Tool" == "ESMF" ]; then
+
+	echo "Unsupported"
 
 fi
 
